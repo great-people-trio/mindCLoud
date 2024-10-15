@@ -43,7 +43,7 @@ public class TagBookmarkController {
         return ResponseEntity.ok(bookmarks);
     }
 
-    // 3. 태그와 북마크의 결합 삭제 -> 일부 북마크에서
+    // 3. 태그와 북마크의 결합 삭제
     @DeleteMapping
     public ResponseEntity<Void> removeTagBookmark(@RequestParam Long tagId, @RequestBody Bookmark bookmark) {
         Tag tag = tagRepository.findById(tagId).orElseThrow(() ->
@@ -52,8 +52,7 @@ public class TagBookmarkController {
         return ResponseEntity.noContent().build();
     }
 
-    // 4. 특정 태그와 관련된 모든 결합 삭제 -> 태그 삭제 시 결합 모두 삭제, 이거 태그에서 구현 해야함
-    // 근데 아직은 구현 안 함
+    // 4. 특정 태그와 관련된 모든 결합 삭제
     @DeleteMapping("/{tagId}/all-bookmarks")
     public ResponseEntity<Void> deleteAllTagBookmarks(@PathVariable Long tagId) {
         tagBookmarkService.deleteAllByTagId(tagId);

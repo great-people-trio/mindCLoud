@@ -19,13 +19,11 @@ public class BookmarkController {
     //북마크 생성
     @PostMapping
     public Bookmark createBookmark(@RequestBody Bookmark bookmark){
-
         return bookmarkService.createBookmark(bookmark);
     }
     //모든 북마크 조회
     @GetMapping
     public List<Bookmark> getAllBookmark(){
-
         return bookmarkService.getAllBookmark();
     }
     //이름으로 북마크 조회
