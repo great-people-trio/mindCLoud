@@ -28,8 +28,6 @@ public class TagService {
         return bookmarkRepository.findByTags_Tag_Tagname(tagname);
     }
 
-<<<<<<< Updated upstream
-=======
     public List<Tag> findAllTags() {
         return tagRepository.findAll();
 
@@ -39,7 +37,6 @@ public class TagService {
         return tagRepository.findById(id);
     }
 
->>>>>>> Stashed changes
 //    public List<Bookmark> getBookmarkByTagname(String tagname){
 //        List<Tag> tags = tagRepository.findByTagname(tagname);
 //        return tags.stream()
