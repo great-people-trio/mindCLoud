@@ -1,5 +1,6 @@
 package kr.brain.our_app.bookmark.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import kr.brain.our_app.user.dto.User;
 import lombok.*;
@@ -35,7 +36,8 @@ public class Bookmark {
     private User user;
 
     //태그는 중복을 허용하지않음. 따라서 SET을 사용
-    @OneToMany(mappedBy = "bookmark", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "bookmark", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    //@JoinColumn(name ="tags_id")
     private Set<TagBookmark> tags = new HashSet<>();
 
     @Builder
@@ -44,5 +46,9 @@ public class Bookmark {
         this.user = user;
         this.bookmarkName = bookmarkName;
     }
+<<<<<<< Updated upstream
 }
 
+=======
+}
+>>>>>>> Stashed changes

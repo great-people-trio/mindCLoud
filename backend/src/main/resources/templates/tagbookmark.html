@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tag and Bookmark List</title>
+</head>
+<body>
+<h2>Tag and Bookmark List</h2>
+
+<form action="/tagbookmark" method="POST">
+    <label for="tagId">Tag Id :</label>
+    <input type="text" id="tagId" name="tagId" required>
+
+    <label for="bookmarkId"> Bookmark Id : </label>
+    <input type="text" id="bookmarkId" name="bookmarkId" required>
+
+    <button type="submit">Create Tag</button>
+</form>
+
+<hr>
+<!-- 태그와 북마크 리스트를 표시하는 테이블 -->
+<table>
+    <thead>
+    <tr>
+        <th>Tag ID</th>
+        <th>Tag Name</th>
+        <th>Bookmark ID</th>
+        <th>Bookmark Title</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- 각 태그를 순회하여 출력 (Thymeleaf 반복문 사용) -->
+    <tr th:each="tagbookmark : ${tagbookmarkList}">
+        <td th:text="${tagbookmark.tag.id}"></td>
+        <td th:text="${tagbookmark.tag.name}"></td>
+        <td th:text="${tagbookmark.bookmark.id}"></td>
+        <td th:text="${tagbookmark.bookmark.title}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

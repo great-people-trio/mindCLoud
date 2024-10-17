@@ -19,11 +19,16 @@ public class BookmarkController {
     //북마크 생성
     @PostMapping
     public Bookmark createBookmark(@RequestBody Bookmark bookmark){
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
         return bookmarkService.createBookmark(bookmark);
     }
     //모든 북마크 조회
     @GetMapping
     public List<Bookmark> getAllBookmark(){
+<<<<<<< Updated upstream
         return bookmarkService.getAllBookmark();
     }
     //이름으로 북마크 조회
@@ -32,6 +37,17 @@ public class BookmarkController {
         return bookmarkService.getBookmarkByName(bookmarkName);
    }
    //태그로 북마크 조회
+=======
+
+        return bookmarkService.getAllBookmark();
+    }
+    //이름으로 북마크 조회
+    @GetMapping("/search")
+    public List<Bookmark> getBookmarkByName(@RequestParam String bookmarkName){
+        return bookmarkService.getBookmarkByName(bookmarkName);
+    }
+    //태그로 북마크 조회
+>>>>>>> Stashed changes
     @GetMapping("/tag")
     public List<Bookmark> getBookmarkByTag(@RequestParam String tag){
         return bookmarkService.getBookmarkByTagName(tag);
@@ -43,4 +59,9 @@ public class BookmarkController {
         return ResponseEntity.noContent().build();
     }
 
+<<<<<<< Updated upstream
 }
+=======
+
+}
+>>>>>>> Stashed changes

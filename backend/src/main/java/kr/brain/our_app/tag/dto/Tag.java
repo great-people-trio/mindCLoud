@@ -18,7 +18,7 @@ public class Tag {
     private Long id;
 
     @NotEmpty
-    @Column(nullable = false, length = 25)
+    @Column(nullable = false, length = 25, unique = true)
     private String tagname;
 
     public Tag() {
