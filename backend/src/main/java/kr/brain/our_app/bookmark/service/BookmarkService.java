@@ -2,12 +2,9 @@ package kr.brain.our_app.bookmark.service;
 
 import kr.brain.our_app.bookmark.dto.Bookmark;
 import kr.brain.our_app.bookmark.repository.BookmarkRepository;
-<<<<<<< Updated upstream
-import kr.brain.our_app.user.dto.User;
-import kr.brain.our_app.user.repository.UserRepository;
-=======
+
 import kr.brain.our_app.tag.repository.TagRepository;
->>>>>>> Stashed changes
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +13,10 @@ import java.util.Optional;
 
 @Service
 public class BookmarkService {
-<<<<<<< Updated upstream
 
     @Autowired
     private BookmarkRepository bookmarkRepository;
 
-=======
-//    @Autowired
-//    private BookmarkRepository bookmarkRepository;
     private final BookmarkRepository bookmarkRepository;
     private final TagRepository tagRepository;
 
@@ -31,7 +24,6 @@ public class BookmarkService {
         this.bookmarkRepository = bookmarkRepository;
         this.tagRepository = tagRepository;
     }
->>>>>>> Stashed changes
     // 북마크 저장
     public Bookmark createBookmark(Bookmark bookmark) {
         if (bookmark.getUser() == null) {
@@ -59,15 +51,9 @@ public class BookmarkService {
     public List<Bookmark> getBookmarkByTagName(String tagName) {
         return bookmarkRepository.findByTags_Tag_Tagname(tagName);
     }
-
-<<<<<<< Updated upstream
-
-}
-=======
     public Optional<Bookmark> findBookmarkById(Long id) {
         return bookmarkRepository.findById(id);
     }
 
-
 }
->>>>>>> Stashed changes
+

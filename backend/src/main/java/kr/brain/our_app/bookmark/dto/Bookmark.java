@@ -41,14 +41,9 @@ public class Bookmark {
     private Set<TagBookmark> tags = new HashSet<>();
 
     @Builder
-    public Bookmark(final String url, final User user , final String bookmarkName){
+    public Bookmark(final String url, final User user, final String bookmarkName) {
         this.url = url;
         this.user = user;
         this.bookmarkName = bookmarkName;
     }
-<<<<<<< Updated upstream
 }
-
-=======
-}
->>>>>>> Stashed changes
