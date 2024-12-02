@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -22,9 +24,9 @@ public class S3Service {
         this.s3Client = s3Client;
     }
 
-    public String uploadFile(String bookmarkId , String imageUrl) throws IOException {
-        String fileName = bookmarkId + "_" + imageUrl.substring(imageUrl.lastIndexOf("/")+1);
-        //profile.png가 들어오면 550e8400-e29b-41d4-a716-446655440000_profile.png 로 출력된다.
+    public String uploadFile(MultipartFile file) throws IOException {
+        String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentType(file.getContentType());
         metadata.setContentLength(file.getSize());
@@ -32,8 +34,6 @@ public class S3Service {
         s3Client.putObject(new PutObjectRequest(bucketName, fileName, file.getInputStream(), metadata)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
         return s3Client.getUrl(bucketName, fileName).toString();
-
-        //여기에 경로에 접근해서 이미지 불러오지 못하는 예외의 경우, s3에 있는 기본이미지 경로를 넣어준다.
     }
 
     public List<String> listFiles() {
@@ -45,10 +45,30 @@ public class S3Service {
         }
         return fileUrls;
     }
-
     // 파일 삭제
     public void deleteFile(String fileName) {
         s3Client.deleteObject(bucketName, fileName);
     }
 
+    // 이미지 URL을 받아 S3에 업로드하는 메서드
+    public String uploadImageFromUrl(String imageUrl, String title, String userId) throws IOException {
+        URL url = new URL(imageUrl);
+        try (InputStream inputStream = url.openStream()) {
+            // 파일명은 title과 userId를 조합하여 고유 생성
+            String fileName = title.replaceAll("\\s+", "_") + "_" + userId + ".jpg";
+            ObjectMetadata metadata = new ObjectMetadata();
+            metadata.setContentType("image/jpeg");
+
+            s3Client.putObject(new PutObjectRequest(bucketName, fileName, inputStream, metadata)
+                    .withCannedAcl(CannedAccessControlList.PublicRead));
+
+            return s3Client.getUrl(bucketName, fileName).toString();
+        }
+    }
+
+    // 파일명으로 조회하는 메서드 추가
+    public String getFileUrl(String title, String userId) {
+        String fileName = title.replaceAll("\\s+", "_") + "_" + userId + ".jpg";
+        return s3Client.getUrl(bucketName, fileName).toString();
+    }
 }
