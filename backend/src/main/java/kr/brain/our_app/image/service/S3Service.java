@@ -22,9 +22,9 @@ public class S3Service {
         this.s3Client = s3Client;
     }
 
-    public String uploadFile(MultipartFile file) throws IOException {
-        String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
-
+    public String uploadFile(String bookmarkId , String imageUrl) throws IOException {
+        String fileName = bookmarkId + "_" + imageUrl.substring(imageUrl.lastIndexOf("/")+1);
+        //profile.png가 들어오면 550e8400-e29b-41d4-a716-446655440000_profile.png 로 출력된다.
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentType(file.getContentType());
         metadata.setContentLength(file.getSize());
@@ -32,6 +32,8 @@ public class S3Service {
         s3Client.putObject(new PutObjectRequest(bucketName, fileName, file.getInputStream(), metadata)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
         return s3Client.getUrl(bucketName, fileName).toString();
+
+        //여기에 경로에 접근해서 이미지 불러오지 못하는 예외의 경우, s3에 있는 기본이미지 경로를 넣어준다.
     }
 
     public List<String> listFiles() {
@@ -43,8 +45,10 @@ public class S3Service {
         }
         return fileUrls;
     }
+
     // 파일 삭제
     public void deleteFile(String fileName) {
         s3Client.deleteObject(bucketName, fileName);
     }
+
 }

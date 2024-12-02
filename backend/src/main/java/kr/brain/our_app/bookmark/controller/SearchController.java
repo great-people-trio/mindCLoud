@@ -33,7 +33,7 @@ public class SearchController {
         searchService.deleteBookmarkInSearch(bookmarkName, email);
         return ResponseEntity.ok("북마크가 삭제되었습니다.");
     }
-
+    
     @PostMapping("/modify")
     public ResponseEntity<BookmarkWithTagsDto> modifyBookmarkWithTags(@RequestBody ModifyDto modifyDto) {
         BookmarkWithTagsDto modifiedBookmark = searchService.modifyBWTD(modifyDto);

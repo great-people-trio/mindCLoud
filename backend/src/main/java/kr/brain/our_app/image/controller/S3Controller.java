@@ -1,5 +1,6 @@
 package kr.brain.our_app.image.controller;
 
+import kr.brain.our_app.bookmark.dto.RequestFrontDto;
 import kr.brain.our_app.image.service.S3Service;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,13 +29,14 @@ public class S3Controller {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("File upload failed: " + e.getMessage());
         }
-    }
+    }//bookmarkid ,imageurl 필요,
 
     @GetMapping("/files")
     public ResponseEntity<List<String>> listFiles() {
         List<String> fileUrls = s3Service.listFiles();
         return ResponseEntity.ok(fileUrls);
     }
+
     @DeleteMapping("/delete/{fileName}")
     public ResponseEntity<Void> deleteFile(@PathVariable String fileName) {
         try {

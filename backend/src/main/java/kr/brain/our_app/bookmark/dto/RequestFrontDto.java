@@ -15,4 +15,5 @@ public class RequestFrontDto {
     private List<String>tags;
     private String userName;
     private String email;
+    private String imageUrl;
 }
